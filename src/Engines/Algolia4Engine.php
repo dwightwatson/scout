@@ -39,7 +39,7 @@ class Algolia4Engine extends AlgoliaEngine
             'appId' => $config['id'],
             'apiKey' => $config['secret'],
         ]), array_filter([
-            'batchSize' => Arr::get($config, 'batch_size'),
+            'batchSize' => transform(Arr::get($config, 'batch_size'), fn ($batchSize) => is_int($batchSize) ? $batchSize : null),
         ])))->setDefaultHeaders($headers);
 
         if (is_int($connectTimeout = Arr::get($config, 'connect_timeout'))) {
